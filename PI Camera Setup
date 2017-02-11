@@ -5,4 +5,6 @@ https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/
 Enable Pi Camera
 1)rasp-config
 
-The camera focu lends is fixed but it can be changed
+The camera focus lens is fixed but it can be changed by using an eraser and turn the lens.
+
+Use python PiCamera library to contorl the pi camera.
