@@ -1,0 +1,8 @@
+Userful links:
+https://www.raspberrypi.org/blog/macro-photography-with-the-camera-board/
+https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/
+
+Enable Pi Camera
+1)rasp-config
+
+The camera focu lends is fixed but it can be changed
