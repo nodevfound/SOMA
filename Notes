@@ -1,1 +1,23 @@
 https://realpython.com/blog/python/setting-up-a-simple-ocr-server/
+
+<u>Manually installing leptonica</u>
+wget http://www.leptonica.org/source/leptonica-1.74.1.tar.gz
+$ tar -zxvf leptonica-1.74.1.tar.gz
+$ cd leptonica-1.74.1/
+$ ./autobuild
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig
+
+Manually instaling tesseract
+git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
+cd tesseract
+./autogen.sh
+./configure --enable-debug
+LDFLAGS="-L/usr/local/lib" CFLAGS="-I/usr/local/include" make
+sudo make install
+sudo ldconfig
+
+*** If configure fails with an error like "syntax error near unexpected token `-mavx,'" and/or AX_CHECK_COMPILE_FLAG(...) 
+then double check you have installed autoconf-archive.
