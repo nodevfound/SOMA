@@ -1,6 +1,7 @@
+Useful links
 https://realpython.com/blog/python/setting-up-a-simple-ocr-server/
 
-<u>Manually installing leptonica</u>
+Manually installing leptonica
 wget http://www.leptonica.org/source/leptonica-1.74.1.tar.gz
 $ tar -zxvf leptonica-1.74.1.tar.gz
 $ cd leptonica-1.74.1/
