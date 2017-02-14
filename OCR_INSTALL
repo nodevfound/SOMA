@@ -1,5 +1,11 @@
+# pytesseract is a python library module that is a wrapper for tesseract-ocr. To use it we need to install tesseract and leptonica. (https://pypi.python.org/pypi/pytesseract/0.1)
+
 # Useful links
-https://realpython.com/blog/python/setting-up-a-simple-ocr-server/
+1) https://realpython.com/blog/python/setting-up-a-simple-ocr-server/
+   (Link for the source code from above URL)
+   https://github.com/ybur-yug/python_ocr_tutorial/archive/v1.tar.gz
+
+2) https://github.com/tesseract-ocr
 
 # Install Dependencies
 $ sudo apt-get update
@@ -20,7 +26,7 @@ $ sudo apt-get install -y tk8.5 tcl8.5 tk8.5-dev tcl8.5-dev
 $ sudo apt-get build-dep -y python-imaging --fix-missing
 $ sudo apt-get install -y imagemagick
 
-# Manually installing leptonica
+# Manually installing of leptonica version 1.74.1
 $ wget http://www.leptonica.org/source/leptonica-1.74.1.tar.gz
 $ tar -zxvf leptonica-1.74.1.tar.gz
 $ cd leptonica-1.74.1/
@@ -30,7 +36,10 @@ $ make
 $ sudo make install
 $ sudo ldconfig
 
-# Manually instaling tesseract
+# Manually installing of tesseract version 4.0
+(*** If configure fails with an error like "syntax error near unexpected token `-mavx,'" and/or AX_CHECK_COMPILE_FLAG(...) 
+then double check you have installed autoconf-archive. ***)
+
 $ git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
 $ cd tesseract
 $ ./autogen.sh
@@ -39,5 +48,25 @@ $ LDFLAGS="-L/usr/local/lib" CFLAGS="-I/usr/local/include" make
 $ sudo make install
 $ sudo ldconfig
 
-*** If configure fails with an error like "syntax error near unexpected token `-mavx,'" and/or AX_CHECK_COMPILE_FLAG(...) 
-then double check you have installed autoconf-archive.
+# Setting up the Lang data
+$ export TESSDATA_PREFIX=/usr/local/share/
+$ wget https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata
+$ mv eng.traineddata $TESSDATA_PREFIX/tessdata
+
+# Setting up the client
+$ pip install -r /home/pi/SOMA/tools/python_ocr_tutorial-1/flask_server/requirements.txt
+
+# Run the flash server (https://www.raspberrypi.org/learning/python-web-server-with-flask/worksheet/)
+$ python /home/pi/SOMA/tools/python_ocr_tutorial-1/flask_server/app.py
+
+# Testing the OCR via the network
+$ curl -X POST http://1.1.0.27:5000/v1/ocr -d '{"image_url": "https://www.realpython.com/images/blog_images/ocr/ocr.jpg"}' -H "Content-Type: application/json"
+
+# Test OCR offline
+from PIL import Image
+import pytesseract
+test_IM = Image.open("xxx.jpg")
+print pytesseract.image_to_string(test_IM)
+
+
+
