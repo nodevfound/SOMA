@@ -1,0 +1,9 @@
+# The camera focus lens is fixed but it can be changed. Use an eraser , press against the lens and turn anti-clockwise (gently).
+The python PiCamera library to contorl the pi camera.
+
+# Userful links:
+1) https://www.raspberrypi.org/blog/macro-photography-with-the-camera-board/
+2) https://www.raspberrypi.org/learning/getting-started-with-picamera/worksheet/
+
+# Enable Pi Camera
+$ rasp-config
