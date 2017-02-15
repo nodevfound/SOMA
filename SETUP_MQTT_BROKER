@@ -1,0 +1,52 @@
+# Useful link
+https://www.digitalocean.com/community/questions/how-to-setup-a-mosquitto-mqtt-server-and-receive-data-from-owntracks
+
+# Setup
+$ adduser mosquitto
+$ apt-get update
+$ apt-get install build-essential libwrap0-dev libssl-dev libc-ares-dev uuid-dev xsltproc
+
+# Download and compile code
+$ cd /home/mosquitto
+$ wget http://mosquitto.org/files/source/mosquitto-1.4.8.tar.gz
+$ tar xvzf mosquitto-1.4.8.tar.gz
+$ cd mosquitto-1.4.8
+$ make
+$ make install
+
+# Configure the broker
+# 1) Create a login credential
+$ mosquitto_passwd -c /etc/mosquitto/pwfile owntracks
+
+# 2) Set the database (db) storage location
+$ mkdir /var/lib/mosquitto/
+$ chown mosquitto:mosquitto /var/lib/mosquitto/ -R
+
+# 3) Create configuration file
+$ cp /etc/mosquitto/mosquitto.conf.example /etc/mosquitto/mosquitto.conf
+
+# 4) Edit the configurration file
+
+listener 8883 <yourIP>
+persistence true
+persistence_location /var/lib/mosquitto/
+persistence_file mosquitto.db
+log_dest syslog
+log_dest stdout
+log_dest topic
+log_type error
+log_type warning
+log_type notice
+log_type information
+connection_messages true
+log_timestamp true
+allow_anonymous false
+password_file /etc/mosquitto/pwfile
+
+# Run this
+$ /sbin/ldconfig
+
+# Startup the sever
+$ mosquitto -c /etc/mosquitto/mosquitto.conf
+
+
