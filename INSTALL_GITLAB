@@ -1,0 +1,11 @@
+# Useful link
+https://about.gitlab.com/downloads/#ubuntu1604
+
+# Install dependencies
+$ sudo apt-get install curl sendmail
+
+# Start installation
+$ curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+$ sudo apt-get install gitlab-ce
+$ sudo gitlab-ctl reconfigure
+$ sudo gitlab-ctl upgrade
