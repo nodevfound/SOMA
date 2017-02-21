@@ -8,4 +8,13 @@ $ sudo apt-get install curl sendmail
 $ curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
 $ sudo apt-get install gitlab-ce
 $ sudo gitlab-ctl reconfigure
-$ sudo gitlab-ctl upgrade
+$ sudo gitlab-ctl pg-upgrade
+
+
+# Troubleshooting using rail
+$ gitlab-rails console production
+$ Notify.test_email('xxxxx@gmail.com', 'Hello World', 'This is a test message').deliver_now
+
+# Testing sendmail command
+$ echo “This will go into the body of the mail.” | sendmail “Hello world” xxxxx@gmail.com
+
