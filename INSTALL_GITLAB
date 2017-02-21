@@ -1,5 +1,6 @@
 # Useful link
-https://about.gitlab.com/downloads/#ubuntu1604
+1) https://about.gitlab.com/downloads/#ubuntu1604
+2) https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/administration/troubleshooting/debug.md
 
 # Install dependencies
 $ sudo apt-get install curl sendmail
