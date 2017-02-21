@@ -6,6 +6,7 @@
    https://github.com/ybur-yug/python_ocr_tutorial/archive/v1.tar.gz
 
 2) https://github.com/tesseract-ocr
+3) https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality 
 
 # Install Dependencies
 $ sudo apt-get update
