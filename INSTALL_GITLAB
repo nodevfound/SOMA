@@ -1,4 +1,4 @@
-# Useful link
+# Useful link gitlab setup, configuration and troubleshooting
 1) https://about.gitlab.com/downloads/#ubuntu1604
 2) https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/administration/troubleshooting/debug.md
 
@@ -18,4 +18,42 @@ $ Notify.test_email('xxxxx@gmail.com', 'Hello World', 'This is a test message').
 
 # Testing sendmail command
 $ echo “This will go into the body of the mail.” | sendmail “Hello world” xxxxx@gmail.com
+
+# Setup HTTPS for GitLab
+# Useful Link for setting up HTTPS for Gitlab using LetsEncrypt
+1) https://www.digitalocean.com/community/tutorials/how-to-secure-gitlab-with-let-s-encrypt-on-ubuntu-16-04
+2) https://webnugget.de/setting-up-gitlab-with-free-ssl-certs-from-lets-encrypt-on-ubuntu-14-04/
+
+# Install LetsEncrypt
+$ sudo apt-get install letsencrypt
+
+# Make a root directory where LetsEncrypt will validate the certificates
+$ sudo mkdir -p /var/www/letsencrypt
+
+# The Let's Encrypt web root verification method places a file within a .well-known directory in a document root so that the certificate authority can validate it. This line tells Nginx to serve requests for /.well-known from the web root we created a moment ago
+
+# Edit the /etc/gitlab/gitlab.rb as follows and run "gitlab-ctl reconfigure"
+nginx['custom_gitlab_server_config'] = "location ^~ /.well-known { root /var/www/letsencrypt; }"
+
+# In the Let's Encrypt version included in the Ubuntu 16.04 repositories, we need to pass three options. We need choose the web root authenticator (-a webroot), pass in the document root (-w /var/www/letsencrypt), and use the -d command to pass our domain name. You can find all of the certificates and keys that were created by looking at the /etc/letsencrypt/live/your_domain directory with sudo privileges
+$ sudo letsencrypt certonly -a webroot -w /var/www/letsencrypt -d <your_domain>
+
+# Setup gitlab to use https. The redirect line tells Nginx to automatically redirect requests made to the HTTP port 80 to the HTTPS port 443. The ssl_certificate line should point to the full path of the fullchain.pem file, while the ssl_certificate_key line should point to the full path of the privkey.pem file
+
+external_url 'https://your_domain'
+nginx['redirect_http_to_https'] = true
+nginx['ssl_certificate'] = "/etc/letsencrypt/live/your_domain/fullchain.pem"
+nginx['ssl_certificate_key'] = "/etc/letsencrypt/live/your_domain/privkey.pem"
+
+# Restart to apply changes
+$ gitlab-ctl reconfigure
+
+
+
+
+
+
+
+
+
 
